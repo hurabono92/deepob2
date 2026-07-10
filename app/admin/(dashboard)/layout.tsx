@@ -1,0 +1,14 @@
+import AdminNav from "@/components/admin/AdminNav";
+
+export default function AdminDashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex min-h-screen flex-col sm:flex-row">
+      <AdminNav />
+      <main className="flex-1 p-6 sm:p-10">{children}</main>
+    </div>
+  );
+}

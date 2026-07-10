@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #2d2d2d;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* 사단법인 깊은순종 브랜드 색상 토큰 */
+  --color-primary: #006d8d;
+  --color-primary-dark: #004266;
+  --color-accent: #1f89a8;
+  --color-ink: #2d2d2d;
+  --color-surface: #f9f9f9;
+  --color-footer-bg: #292929;
+  --color-footer-text: #a1a1a1;
+
+  --shadow-card: 1px 1px 4px #bfbfbf;
+
+  --font-sans: "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR",
+    system-ui, sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
