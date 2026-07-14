@@ -69,3 +69,11 @@ model SiteText {
   value     String
   updatedAt DateTime @updatedAt
 }
+
+// 관리자 계정 — 단일 레코드(id=1)만 사용. 존재하면 .env의 초기 계정보다 우선한다.
+model AdminAccount {
+  id           Int      @id @default(1)
+  username     String
+  passwordHash String
+  updatedAt    DateTime @updatedAt
+}

@@ -9,6 +9,7 @@ const links = [
   { href: "/admin/hero-slides", label: "사진 관리" },
   { href: "/admin/business-welfare", label: "복지서비스 페이지 관리" },
   { href: "/admin/giving-pages", label: "나눔안내 페이지 관리" },
+  { href: "/admin/account", label: "계정 설정" },
 ];
 
 export default function AdminNav() {

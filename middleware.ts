@@ -37,5 +37,6 @@ export const config = {
     "/api/hero-slides/:path*",
     "/api/site-images/:path*",
     "/api/site-texts/:path*",
+    "/api/admin/account/:path*",
   ],
 };
