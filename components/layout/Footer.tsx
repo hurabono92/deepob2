@@ -16,10 +16,6 @@ export default function Footer() {
           <Link href="/about/location" className="hover:text-white">
             오시는길
           </Link>
-          <span className="opacity-40">|</span>
-          <Link href="/admin/login" className="hover:text-white">
-            관리자
-          </Link>
         </div>
 
         <p>

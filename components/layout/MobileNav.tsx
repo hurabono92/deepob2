@@ -48,15 +48,6 @@ export default function MobileNav({
               </ul>
             </div>
           ))}
-          <div className="mt-6 border-t border-surface pt-4">
-            <Link
-              href="/admin/login"
-              onClick={onClose}
-              className="block text-sm text-ink/50 hover:text-primary"
-            >
-              관리자 로그인
-            </Link>
-          </div>
         </nav>
       </div>
     </div>

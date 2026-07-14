@@ -32,12 +32,6 @@ export default function Header() {
 
         <div className="hidden md:flex items-center gap-3">
           <Link
-            href="/admin/login"
-            className="text-[17px] font-semibold text-white/70 hover:text-white"
-          >
-            관리자
-          </Link>
-          <Link
             href="/about/location"
             className="rounded-full bg-primary px-[22px] py-[11px] text-[17px] font-bold text-white hover:bg-primary/90"
           >
