@@ -39,7 +39,7 @@ export const navGroups: NavGroup[] = [
   },
   {
     label: "법인소개",
-    href: "/about",
+    href: "/about/org-chart",
     children: [
       { label: "조직도", href: "/about/org-chart" },
       { label: "법인연혁", href: "/about/history" },
