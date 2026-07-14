@@ -6,10 +6,13 @@ import { getPostImages } from "@/lib/post-images";
 
 export default async function EditPostPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ from?: string }>;
 }) {
   const { id } = await params;
+  const { from } = await searchParams;
   const post = await getPostById(Number(id));
   if (!post) notFound();
 
@@ -26,6 +29,7 @@ export default async function EditPostPage({
           content: post.content,
           thumbnailUrl: post.thumbnailUrl,
         }}
+        returnTo={from}
       />
 
       <div className="mt-10">

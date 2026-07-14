@@ -13,12 +13,20 @@ type InitialPost = {
   thumbnailUrl: string | null;
 };
 
-export default function PostForm({ initial }: { initial?: InitialPost }) {
+export default function PostForm({
+  initial,
+  initialBoard,
+  returnTo = "/admin/posts",
+}: {
+  initial?: InitialPost;
+  initialBoard?: BoardType;
+  returnTo?: string;
+}) {
   const router = useRouter();
   const isEdit = !!initial;
 
   const [board, setBoard] = useState<BoardType>(
-    initial?.board ?? BoardType.NOTICE
+    initial?.board ?? initialBoard ?? BoardType.NOTICE
   );
   const [title, setTitle] = useState(initial?.title ?? "");
   const [content, setContent] = useState(initial?.content ?? "");
@@ -73,7 +81,7 @@ export default function PostForm({ initial }: { initial?: InitialPost }) {
         throw new Error(data.error || "저장에 실패했습니다.");
       }
 
-      router.push("/admin/posts");
+      router.push(returnTo);
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "오류가 발생했습니다.");

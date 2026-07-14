@@ -26,10 +26,12 @@ export default function BoardList({
   variant?: "list" | "grid";
 }) {
   return (
-    <div className="mx-auto max-w-[1200px] px-4 py-16">
-      <h1 className="mb-10 text-center text-2xl font-black text-ink sm:text-3xl">
-        {title}
-      </h1>
+    <div>
+      {title && (
+        <h1 className="mb-10 text-center text-2xl font-black text-ink sm:text-3xl">
+          {title}
+        </h1>
+      )}
 
       {posts.length === 0 ? (
         <p className="py-16 text-center text-sm text-ink/50">
