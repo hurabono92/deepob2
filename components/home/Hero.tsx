@@ -87,7 +87,7 @@ export default function Hero({
           {title}
         </h1>
         <p
-          className="mx-auto mt-6 max-w-xl text-base leading-7 text-white/95 sm:text-lg"
+          className="mx-auto mt-6 max-w-xl whitespace-pre-line text-base leading-7 text-white/95 sm:text-lg"
           style={{ textShadow: "0 1px 6px rgba(0,0,0,0.55)" }}
         >
           {subtitle}
