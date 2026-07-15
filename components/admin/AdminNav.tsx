@@ -10,6 +10,8 @@ const links = [
   { href: "/admin/business-welfare", label: "복지서비스 페이지 관리" },
   { href: "/admin/giving-pages", label: "나눔안내 페이지 관리" },
   { href: "/admin/news", label: "법인소식 페이지 관리" },
+  { href: "/admin/history", label: "법인연혁 페이지 관리" },
+  { href: "/admin/location", label: "오시는길 페이지 관리" },
   { href: "/admin/account", label: "계정 설정" },
 ];
 
