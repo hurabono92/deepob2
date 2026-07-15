@@ -4,7 +4,7 @@ import path from "path";
 import fs from "fs/promises";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
-const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_SIZE = 20 * 1024 * 1024; // 20MB — 카메라/스캔 원본 사진도 올릴 수 있도록 여유 있게 설정
 
 // 로컬 디스크(public/uploads)에 저장 — next start/dev로 상시 실행되는 서버 전제.
 // 이후 서버리스(예: Vercel/Cloudflare) 배포로 옮길 경우 파일 시스템이 휘발성이므로
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
   }
   if (file.size > MAX_SIZE) {
     return NextResponse.json(
-      { error: "파일 크기는 5MB 이하여야 합니다." },
+      { error: "파일 크기는 20MB 이하여야 합니다." },
       { status: 400 }
     );
   }

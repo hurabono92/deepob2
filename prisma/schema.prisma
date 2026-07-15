@@ -77,3 +77,16 @@ model AdminAccount {
   passwordHash String
   updatedAt    DateTime @updatedAt
 }
+
+// 법인연혁 — 연도별 항목. content는 줄바꿈으로 구분된 여러 활동 내역을 담는다.
+model HistoryEntry {
+  id        Int      @id @default(autoincrement())
+  year      String
+  content   String
+  imageUrl  String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([order])
+}

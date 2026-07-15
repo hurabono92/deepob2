@@ -10,7 +10,8 @@ export async function middleware(request: NextRequest) {
     (pathname.startsWith("/api/posts") ||
       pathname.startsWith("/api/hero-slides") ||
       pathname.startsWith("/api/site-images") ||
-      pathname.startsWith("/api/site-texts")) &&
+      pathname.startsWith("/api/site-texts") ||
+      pathname.startsWith("/api/history-entries")) &&
     request.method === "GET"
   ) {
     return NextResponse.next();
@@ -37,6 +38,7 @@ export const config = {
     "/api/hero-slides/:path*",
     "/api/site-images/:path*",
     "/api/site-texts/:path*",
+    "/api/history-entries/:path*",
     "/api/admin/account/:path*",
   ],
 };
