@@ -8,6 +8,7 @@ const links = [
   { href: "/admin/posts", label: "게시물 관리" },
   { href: "/admin/hero-slides", label: "사진 관리" },
   { href: "/admin/business-welfare", label: "복지서비스 페이지 관리" },
+  { href: "/admin/business-news", label: "사업소식 페이지 관리" },
   { href: "/admin/giving-pages", label: "나눔안내 페이지 관리" },
   { href: "/admin/news", label: "법인소식 페이지 관리" },
   { href: "/admin/history", label: "법인연혁 페이지 관리" },
