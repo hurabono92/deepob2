@@ -11,13 +11,35 @@ import {
   HERO_SUBTITLE_KEY,
   HERO_SUBTITLE_DEFAULT,
 } from "@/lib/site-texts";
+import {
+  EXPLORE_WELFARE_IMAGE_KEY,
+  EXPLORE_VOLUNTEER_IMAGE_KEY,
+  EXPLORE_FUND_IMAGE_KEY,
+  EXPLORE_DONATE_IMAGE_KEY,
+  EXPLORE_ORGCHART_IMAGE_KEY,
+} from "@/lib/explore-content";
 
 export default async function AdminHeroSlidesPage() {
-  const [slides, orgChartImage, heroTitle, heroSubtitle] = await Promise.all([
+  const [
+    slides,
+    orgChartImage,
+    heroTitle,
+    heroSubtitle,
+    exploreWelfare,
+    exploreVolunteer,
+    exploreFund,
+    exploreDonate,
+    exploreOrgChart,
+  ] = await Promise.all([
     getHeroSlides(),
     getSiteImage(ORG_CHART_BANNER_KEY),
     getSiteText(HERO_TITLE_KEY),
     getSiteText(HERO_SUBTITLE_KEY),
+    getSiteImage(EXPLORE_WELFARE_IMAGE_KEY),
+    getSiteImage(EXPLORE_VOLUNTEER_IMAGE_KEY),
+    getSiteImage(EXPLORE_FUND_IMAGE_KEY),
+    getSiteImage(EXPLORE_DONATE_IMAGE_KEY),
+    getSiteImage(EXPLORE_ORGCHART_IMAGE_KEY),
   ]);
 
   return (
@@ -55,6 +77,37 @@ export default async function AdminHeroSlidesPage() {
         label="조직도 소개 배너 사진"
         currentImageUrl={orgChartImage?.imageUrl ?? null}
       />
+
+      <h2 className="mt-10 mb-3 text-sm font-bold text-ink/70">
+        메인 화면 둘러보기 카드 사진
+      </h2>
+      <div className="flex flex-col gap-4">
+        <SiteImageForm
+          imageKey={EXPLORE_WELFARE_IMAGE_KEY}
+          label="복지서비스 카드 사진"
+          currentImageUrl={exploreWelfare?.imageUrl ?? null}
+        />
+        <SiteImageForm
+          imageKey={EXPLORE_VOLUNTEER_IMAGE_KEY}
+          label="자원봉사참여 카드 사진"
+          currentImageUrl={exploreVolunteer?.imageUrl ?? null}
+        />
+        <SiteImageForm
+          imageKey={EXPLORE_FUND_IMAGE_KEY}
+          label="기금후원 카드 사진"
+          currentImageUrl={exploreFund?.imageUrl ?? null}
+        />
+        <SiteImageForm
+          imageKey={EXPLORE_DONATE_IMAGE_KEY}
+          label="후원신청 카드 사진"
+          currentImageUrl={exploreDonate?.imageUrl ?? null}
+        />
+        <SiteImageForm
+          imageKey={EXPLORE_ORGCHART_IMAGE_KEY}
+          label="조직도 카드 사진"
+          currentImageUrl={exploreOrgChart?.imageUrl ?? null}
+        />
+      </div>
     </div>
   );
 }

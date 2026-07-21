@@ -16,6 +16,10 @@ import {
   FUND_BANNER_KEY,
   FUND_INTRO_KEY,
   FUND_INTRO_DEFAULT,
+  VOLUNTEER_TRAITS_IMAGE_KEY,
+  VOLUNTEER_STEP1_IMAGE_KEY,
+  VOLUNTEER_STEP2_IMAGE_KEY,
+  VOLUNTEER_STEP3_IMAGE_KEY,
 } from "@/lib/giving-content";
 
 export default async function AdminGivingPagesPage() {
@@ -28,6 +32,10 @@ export default async function AdminGivingPagesPage() {
     donateIntro,
     fundBanner,
     fundIntro,
+    traitsImage,
+    step1Image,
+    step2Image,
+    step3Image,
   ] = await Promise.all([
     getSiteImage(VOLUNTEER_BANNER_KEY),
     getSiteText(VOLUNTEER_EYEBROW_KEY),
@@ -37,6 +45,10 @@ export default async function AdminGivingPagesPage() {
     getSiteText(DONATE_INTRO_KEY),
     getSiteImage(FUND_BANNER_KEY),
     getSiteText(FUND_INTRO_KEY),
+    getSiteImage(VOLUNTEER_TRAITS_IMAGE_KEY),
+    getSiteImage(VOLUNTEER_STEP1_IMAGE_KEY),
+    getSiteImage(VOLUNTEER_STEP2_IMAGE_KEY),
+    getSiteImage(VOLUNTEER_STEP3_IMAGE_KEY),
   ]);
 
   return (
@@ -74,6 +86,26 @@ export default async function AdminGivingPagesPage() {
           label="배너 부제 문구"
           currentValue={volunteerSubtitle?.value ?? VOLUNTEER_SUBTITLE_DEFAULT}
           multiline
+        />
+        <SiteImageForm
+          imageKey={VOLUNTEER_TRAITS_IMAGE_KEY}
+          label="자원봉사의 특성 옆 일러스트 (선택)"
+          currentImageUrl={traitsImage?.imageUrl ?? null}
+        />
+        <SiteImageForm
+          imageKey={VOLUNTEER_STEP1_IMAGE_KEY}
+          label="자원봉사 참여방법 STEP 01 사진 (선택)"
+          currentImageUrl={step1Image?.imageUrl ?? null}
+        />
+        <SiteImageForm
+          imageKey={VOLUNTEER_STEP2_IMAGE_KEY}
+          label="자원봉사 참여방법 STEP 02 사진 (선택)"
+          currentImageUrl={step2Image?.imageUrl ?? null}
+        />
+        <SiteImageForm
+          imageKey={VOLUNTEER_STEP3_IMAGE_KEY}
+          label="자원봉사 참여방법 STEP 03 사진 (선택)"
+          currentImageUrl={step3Image?.imageUrl ?? null}
         />
       </div>
 

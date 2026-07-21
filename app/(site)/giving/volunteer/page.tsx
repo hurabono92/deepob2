@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import SectionSidebar from "@/components/layout/SectionSidebar";
 import HighlightBanner from "@/components/ui/HighlightBanner";
@@ -23,6 +24,10 @@ import {
   VOLUNTEER_TITLE_DEFAULT,
   VOLUNTEER_SUBTITLE_KEY,
   VOLUNTEER_SUBTITLE_DEFAULT,
+  VOLUNTEER_TRAITS_IMAGE_KEY,
+  VOLUNTEER_STEP1_IMAGE_KEY,
+  VOLUNTEER_STEP2_IMAGE_KEY,
+  VOLUNTEER_STEP3_IMAGE_KEY,
 } from "@/lib/giving-content";
 
 const givingGroup = navGroups.find((g) => g.label === "나눔안내")!;
@@ -36,16 +41,32 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 }
 
 export default async function VolunteerPage() {
-  const [rulesText, traitsText, stepsText, banner, eyebrow, title, subtitle] =
-    await Promise.all([
-      getSiteText(WELFARE_RULES_KEY),
-      getSiteText(WELFARE_TRAITS_KEY),
-      getSiteText(WELFARE_STEPS_KEY),
-      getSiteImage(VOLUNTEER_BANNER_KEY),
-      getSiteText(VOLUNTEER_EYEBROW_KEY),
-      getSiteText(VOLUNTEER_TITLE_KEY),
-      getSiteText(VOLUNTEER_SUBTITLE_KEY),
-    ]);
+  const [
+    rulesText,
+    traitsText,
+    stepsText,
+    banner,
+    eyebrow,
+    title,
+    subtitle,
+    traitsImage,
+    step1Image,
+    step2Image,
+    step3Image,
+  ] = await Promise.all([
+    getSiteText(WELFARE_RULES_KEY),
+    getSiteText(WELFARE_TRAITS_KEY),
+    getSiteText(WELFARE_STEPS_KEY),
+    getSiteImage(VOLUNTEER_BANNER_KEY),
+    getSiteText(VOLUNTEER_EYEBROW_KEY),
+    getSiteText(VOLUNTEER_TITLE_KEY),
+    getSiteText(VOLUNTEER_SUBTITLE_KEY),
+    getSiteImage(VOLUNTEER_TRAITS_IMAGE_KEY),
+    getSiteImage(VOLUNTEER_STEP1_IMAGE_KEY),
+    getSiteImage(VOLUNTEER_STEP2_IMAGE_KEY),
+    getSiteImage(VOLUNTEER_STEP3_IMAGE_KEY),
+  ]);
+  const stepImages = [step1Image, step2Image, step3Image];
 
   const volunteerRules = parseLines(rulesText?.value ?? WELFARE_RULES_DEFAULT);
   const volunteerTraits = parsePairs(traitsText?.value ?? WELFARE_TRAITS_DEFAULT);
@@ -89,23 +110,47 @@ export default async function VolunteerPage() {
 
           <section className="mt-12">
             <SectionLabel>자원봉사의 특성</SectionLabel>
-            <div className="space-y-5">
-              {volunteerTraits.map((trait) => (
-                <div key={trait.title}>
-                  <h3 className="font-bold text-ink">{trait.title}</h3>
-                  <p className="mt-1 text-sm leading-6 text-ink/70">
-                    {trait.description}
-                  </p>
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
+              <div className="flex-1 space-y-5">
+                {volunteerTraits.map((trait) => (
+                  <div key={trait.title}>
+                    <h3 className="font-bold text-ink">{trait.title}</h3>
+                    <p className="mt-1 text-sm leading-6 text-ink/70">
+                      {trait.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              {traitsImage?.imageUrl && (
+                <div className="relative h-40 w-full shrink-0 sm:h-44 sm:w-64">
+                  <Image
+                    src={traitsImage.imageUrl}
+                    alt="자원봉사의 특성"
+                    fill
+                    sizes="256px"
+                    className="object-contain"
+                  />
                 </div>
-              ))}
+              )}
             </div>
           </section>
 
           <section className="mb-16 mt-12">
             <SectionLabel>자원봉사 참여방법</SectionLabel>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {volunteerSteps.map((s) => (
+              {volunteerSteps.map((s, i) => (
                 <div key={s.step} className="rounded-xl bg-white p-4 shadow-card">
+                  {stepImages[i]?.imageUrl && (
+                    <div className="relative mb-3 h-24 w-full overflow-hidden rounded-md bg-surface">
+                      <Image
+                        src={stepImages[i]!.imageUrl}
+                        alt={s.label}
+                        fill
+                        sizes="200px"
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
                   <p className="text-xs font-bold text-primary">{s.step}</p>
                   <p className="mt-1 text-sm font-semibold text-ink">{s.label}</p>
                 </div>

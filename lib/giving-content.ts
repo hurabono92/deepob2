@@ -8,6 +8,11 @@ export const VOLUNTEER_TITLE_DEFAULT = "자원봉사참여";
 export const VOLUNTEER_SUBTITLE_DEFAULT =
   "사단법인 깊은순종은 사랑과 정성을 모아\n이웃들과 두텁게 나눕니다.";
 
+export const VOLUNTEER_TRAITS_IMAGE_KEY = "volunteer-traits-image";
+export const VOLUNTEER_STEP1_IMAGE_KEY = "volunteer-step1-image";
+export const VOLUNTEER_STEP2_IMAGE_KEY = "volunteer-step2-image";
+export const VOLUNTEER_STEP3_IMAGE_KEY = "volunteer-step3-image";
+
 export const DONATE_BANNER_KEY = "donate-banner";
 export const DONATE_INTRO_KEY = "donate-intro";
 export const DONATE_INTRO_DEFAULT =
