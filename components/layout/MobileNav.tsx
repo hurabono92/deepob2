@@ -13,7 +13,7 @@ export default function MobileNav({
   if (!open) return null;
 
   return (
-    <div className="md:hidden fixed inset-0 z-50">
+    <div className="lg:hidden fixed inset-0 z-50">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
       <div className="absolute right-0 top-0 h-full w-72 bg-white shadow-card overflow-y-auto">
         <div className="flex items-center justify-between px-4 h-16 border-b border-surface">

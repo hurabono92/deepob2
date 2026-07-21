@@ -24,13 +24,13 @@ export default function Header() {
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center">
+        <nav className="hidden lg:flex items-center">
           {navGroups.map((group) => (
             <NavDropdown key={group.label} group={group} />
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3">
           <Link
             href="/about/location"
             className="rounded-full bg-primary px-[22px] py-[11px] text-[17px] font-bold text-white hover:bg-primary/90"
@@ -41,7 +41,7 @@ export default function Header() {
 
         <button
           type="button"
-          className="md:hidden text-white text-2xl leading-none"
+          className="lg:hidden text-white text-2xl leading-none"
           aria-label="메뉴 열기"
           onClick={() => setMobileOpen(true)}
         >

@@ -16,6 +16,10 @@ export default function Footer() {
           <Link href="/about/location" className="hover:text-white">
             오시는길
           </Link>
+          <span className="opacity-40">|</span>
+          <Link href="/admin/login" className="hover:text-white">
+            관리자
+          </Link>
         </div>
 
         <p>
@@ -24,18 +28,6 @@ export default function Footer() {
           E-mail. deepob@naver.com
         </p>
         <p>Copyright &copy; {new Date().getFullYear()} 사단법인 깊은순종. All rights reserved.</p>
-        <p className="mt-1 text-xs opacity-60">
-          자원봉사참여 배너 사진: Louise Docker,{" "}
-          <a
-            href="https://commons.wikimedia.org/wiki/File:Love_heart.jpg"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:text-white"
-          >
-            Wikimedia Commons
-          </a>{" "}
-          (CC BY 2.0)
-        </p>
       </div>
     </footer>
   );
