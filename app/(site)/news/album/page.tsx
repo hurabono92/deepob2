@@ -1,6 +1,6 @@
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import SectionSidebar from "@/components/layout/SectionSidebar";
-import BoardList from "@/components/board/BoardList";
+import BoardTable from "@/components/board/BoardTable";
 import { getPostsByBoard, boardMeta, BoardType } from "@/lib/posts";
 import { navGroups } from "@/lib/nav-config";
 
@@ -9,14 +9,14 @@ const newsGroup = navGroups.find((g) => g.label === "법인소식")!;
 export default async function AlbumPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; q?: string }>;
 }) {
-  const { page: pageParam } = await searchParams;
+  const { page: pageParam, q } = await searchParams;
   const page = Number(pageParam) || 1;
-  const { posts, totalPages } = await getPostsByBoard(BoardType.ALBUM, {
-    page,
-    limit: 12,
-  });
+  const { posts, total, totalPages } = await getPostsByBoard(
+    BoardType.ALBUM,
+    { page, q }
+  );
 
   return (
     <div className="mx-auto max-w-[1200px] px-4 py-10">
@@ -37,13 +37,13 @@ export default async function AlbumPage({
             />
           </div>
 
-          <BoardList
-            title=""
+          <BoardTable
             href={boardMeta.ALBUM.href}
             posts={posts}
             page={page}
             totalPages={totalPages}
-            variant="grid"
+            total={total}
+            q={q}
           />
         </div>
       </div>

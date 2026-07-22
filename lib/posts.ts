@@ -7,6 +7,7 @@ export type PostInput = {
   board: BoardType;
   title: string;
   content: string;
+  contentColor?: string | null;
   thumbnailUrl?: string | null;
   authorName?: string;
 };

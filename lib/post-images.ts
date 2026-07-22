@@ -7,13 +7,17 @@ export async function getPostImages(postId: number) {
   });
 }
 
-export async function addPostImage(postId: number, imageUrl: string) {
+export async function addPostImage(
+  postId: number,
+  imageUrl: string,
+  originalName?: string
+) {
   const last = await prisma.postImage.findFirst({
     where: { postId },
     orderBy: { order: "desc" },
   });
   const order = (last?.order ?? -1) + 1;
-  return prisma.postImage.create({ data: { postId, imageUrl, order } });
+  return prisma.postImage.create({ data: { postId, imageUrl, originalName, order } });
 }
 
 export async function deletePostImage(id: number) {

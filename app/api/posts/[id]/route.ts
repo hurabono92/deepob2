@@ -17,7 +17,7 @@ export async function PUT(
 ) {
   const { id } = await params;
   const body = await request.json();
-  const { title, content, thumbnailUrl, authorName, published } = body;
+  const { title, content, contentColor, thumbnailUrl, authorName, published } = body;
 
   const existing = await getPostById(Number(id));
   if (!existing) return NextResponse.json({ error: "not found" }, { status: 404 });
@@ -25,6 +25,7 @@ export async function PUT(
   const post = await updatePost(Number(id), {
     ...(title !== undefined && { title: String(title).trim() }),
     ...(content !== undefined && { content: String(content).trim() }),
+    ...(contentColor !== undefined && { contentColor: contentColor || null }),
     ...(thumbnailUrl !== undefined && { thumbnailUrl }),
     ...(authorName !== undefined && { authorName: String(authorName).trim() }),
     ...(published !== undefined && { published: Boolean(published) }),

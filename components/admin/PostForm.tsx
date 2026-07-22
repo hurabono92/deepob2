@@ -10,8 +10,11 @@ type InitialPost = {
   board: BoardType;
   title: string;
   content: string;
+  contentColor: string | null;
   thumbnailUrl: string | null;
 };
+
+const DEFAULT_CONTENT_COLOR = "#3a3f4b";
 
 export default function PostForm({
   initial,
@@ -30,6 +33,9 @@ export default function PostForm({
   );
   const [title, setTitle] = useState(initial?.title ?? "");
   const [content, setContent] = useState(initial?.content ?? "");
+  const [contentColor, setContentColor] = useState(
+    initial?.contentColor ?? DEFAULT_CONTENT_COLOR
+  );
   const [thumbnailUrl] = useState<string | null>(
     initial?.thumbnailUrl ?? null
   );
@@ -64,6 +70,8 @@ export default function PostForm({
         board,
         title,
         content,
+        contentColor:
+          contentColor === DEFAULT_CONTENT_COLOR ? null : contentColor,
         thumbnailUrl: finalThumbnailUrl,
       };
 
@@ -134,8 +142,31 @@ export default function PostForm({
           onChange={(e) => setContent(e.target.value)}
           required
           rows={10}
+          style={{ color: contentColor }}
           className="w-full rounded-md border border-surface px-3 py-2 outline-none focus:border-primary"
         />
+      </label>
+
+      <label className="block text-sm">
+        <span className="mb-1 block text-ink/60">내용 글자색</span>
+        <div className="flex items-center gap-2">
+          <input
+            type="color"
+            value={contentColor}
+            onChange={(e) => setContentColor(e.target.value)}
+            className="h-9 w-14 cursor-pointer rounded-md border border-surface"
+          />
+          <span className="text-ink/50">{contentColor}</span>
+          {contentColor !== DEFAULT_CONTENT_COLOR && (
+            <button
+              type="button"
+              onClick={() => setContentColor(DEFAULT_CONTENT_COLOR)}
+              className="rounded-md border border-surface px-2 py-1 text-xs text-ink/60 hover:bg-surface"
+            >
+              기본값으로
+            </button>
+          )}
+        </div>
       </label>
 
       <label className="block text-sm">

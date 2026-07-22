@@ -21,11 +21,14 @@ export default async function BusinessNewsDetailPage({
     <BoardDetail
       listHref={boardMeta.BUSINESS_NEWS.href}
       listLabel={boardMeta.BUSINESS_NEWS.label}
+      postId={post.id}
       title={post.title}
       authorName={post.authorName}
       createdAt={post.createdAt}
+      viewCount={post.viewCount}
       thumbnailUrl={post.thumbnailUrl}
       content={post.content}
+      contentColor={post.contentColor}
       images={images}
     />
   );

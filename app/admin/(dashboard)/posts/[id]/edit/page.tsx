@@ -27,6 +27,7 @@ export default async function EditPostPage({
           board: post.board,
           title: post.title,
           content: post.content,
+          contentColor: post.contentColor,
           thumbnailUrl: post.thumbnailUrl,
         }}
         returnTo={from}

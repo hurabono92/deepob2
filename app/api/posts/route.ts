@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const { board, title, content, thumbnailUrl, authorName } = body;
+  const { board, title, content, contentColor, thumbnailUrl, authorName } = body;
 
   if (!isBoardType(board) || !title?.trim() || !content?.trim()) {
     return NextResponse.json({ error: "invalid input" }, { status: 400 });
@@ -38,6 +38,7 @@ export async function POST(request: NextRequest) {
     board,
     title: title.trim(),
     content: content.trim(),
+    contentColor: contentColor || null,
     thumbnailUrl: thumbnailUrl || null,
     authorName: authorName?.trim() || undefined,
   });

@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { isImageFile } from "@/lib/files";
 
-type PostImage = { id: number; imageUrl: string };
+type PostImage = { id: number; imageUrl: string; originalName?: string | null };
 
 export default function PostImageGallery({
   postId,
@@ -28,24 +29,25 @@ export default function PostImageGallery({
     try {
       const formData = new FormData();
       formData.append("file", file);
+      formData.append("kind", "attachment");
       const uploadRes = await fetch("/api/upload", {
         method: "POST",
         body: formData,
       });
       if (!uploadRes.ok) {
         const data = await uploadRes.json().catch(() => ({}));
-        throw new Error(data.error || "이미지 업로드에 실패했습니다.");
+        throw new Error(data.error || "파일 업로드에 실패했습니다.");
       }
-      const { url } = await uploadRes.json();
+      const { url, originalName } = await uploadRes.json();
 
       const createRes = await fetch(`/api/posts/${postId}/images`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ imageUrl: url }),
+        body: JSON.stringify({ imageUrl: url, originalName }),
       });
       if (!createRes.ok) {
         const data = await createRes.json().catch(() => ({}));
-        throw new Error(data.error || "사진 추가에 실패했습니다.");
+        throw new Error(data.error || "첨부파일 추가에 실패했습니다.");
       }
 
       setFile(null);
@@ -70,7 +72,7 @@ export default function PostImageGallery({
   }
 
   async function remove(imageId: number) {
-    if (!confirm("이 사진을 삭제하시겠습니까?")) return;
+    if (!confirm("이 첨부파일을 삭제하시겠습니까?")) return;
     setPendingId(imageId);
     await fetch(`/api/posts/${postId}/images/${imageId}`, { method: "DELETE" });
     setPendingId(null);
@@ -79,7 +81,7 @@ export default function PostImageGallery({
 
   return (
     <div className="max-w-2xl">
-      <p className="mb-3 text-sm font-bold text-ink">첨부 사진 (여러 장)</p>
+      <p className="mb-3 text-sm font-bold text-ink">첨부파일 (여러 개 — 사진/PDF/한글/오피스 문서)</p>
 
       <form
         onSubmit={handleUpload}
@@ -87,7 +89,7 @@ export default function PostImageGallery({
       >
         <input
           type="file"
-          accept="image/jpeg,image/png,image/webp"
+          accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.svg,.pdf,.hwp,.hwpx,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.zip"
           onChange={(e) => setFile(e.target.files?.[0] ?? null)}
           required
           className="text-sm"
@@ -97,26 +99,46 @@ export default function PostImageGallery({
           disabled={submitting || !file}
           className="rounded-md bg-primary px-5 py-2 text-sm font-bold text-white hover:bg-primary/90 disabled:opacity-50"
         >
-          {submitting ? "업로드 중..." : "+ 사진 추가"}
+          {submitting ? "업로드 중..." : "+ 첨부파일 추가"}
         </button>
         {error && <p className="w-full text-sm text-red-600">{error}</p>}
       </form>
 
       {images.length === 0 ? (
         <p className="rounded-xl bg-white p-8 text-center text-sm text-ink/50 shadow-card">
-          등록된 사진이 없습니다. 위에서 사진을 추가해 주세요.
+          등록된 첨부파일이 없습니다. 위에서 파일을 추가해 주세요.
         </p>
       ) : (
         <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3">
           {images.map((image, i) => (
             <li key={image.id} className="overflow-hidden rounded-xl bg-white shadow-card">
-              <div className="relative aspect-square bg-surface">
-                <Image
-                  src={image.imageUrl}
-                  alt={`첨부 사진 ${i + 1}`}
-                  fill
-                  className="object-cover"
-                />
+              <div className="relative flex aspect-square items-center justify-center bg-surface">
+                {isImageFile(image.imageUrl) ? (
+                  <Image
+                    src={image.imageUrl}
+                    alt={image.originalName ?? `첨부 사진 ${i + 1}`}
+                    fill
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="flex flex-col items-center gap-2 px-3 text-center">
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      className="h-10 w-10 fill-none stroke-current stroke-1.5 text-ink/40"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Z"
+                      />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M14 2v6h6" />
+                    </svg>
+                    <span className="line-clamp-2 break-all text-xs text-ink/60">
+                      {image.originalName ?? image.imageUrl.split("/").pop()}
+                    </span>
+                  </div>
+                )}
               </div>
               <div className="flex items-center justify-between px-3 py-2">
                 <span className="text-xs text-ink/50">{i + 1}번째</span>

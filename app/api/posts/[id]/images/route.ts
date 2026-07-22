@@ -15,12 +15,16 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  const { imageUrl } = await request.json();
+  const { imageUrl, originalName } = await request.json();
 
   if (!imageUrl || typeof imageUrl !== "string") {
     return NextResponse.json({ error: "imageUrl이 필요합니다." }, { status: 400 });
   }
 
-  const image = await addPostImage(Number(id), imageUrl);
+  const image = await addPostImage(
+    Number(id),
+    imageUrl,
+    typeof originalName === "string" ? originalName : undefined
+  );
   return NextResponse.json(image, { status: 201 });
 }

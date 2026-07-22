@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { formatShortDate } from "@/lib/dates";
+import { isImageFile } from "@/lib/files";
 import Pagination from "./Pagination";
 
 type BoardPost = {
@@ -8,6 +9,7 @@ type BoardPost = {
   authorName: string;
   createdAt: Date;
   viewCount: number;
+  thumbnailUrl?: string | null;
 };
 
 export default function BoardTable({
@@ -77,8 +79,33 @@ export default function BoardTable({
                     {total - ((page - 1) * limit + i)}
                   </td>
                   <td className="px-3 py-3">
-                    <Link href={`${href}/${post.id}`} className="text-ink hover:text-primary">
+                    <Link
+                      href={`${href}/${post.id}`}
+                      className="inline-flex items-center gap-1.5 text-ink hover:text-primary"
+                    >
                       {post.title}
+                      {post.thumbnailUrl && (
+                        <svg
+                          aria-label="첨부파일"
+                          viewBox="0 0 24 24"
+                          className="h-3.5 w-3.5 shrink-0 fill-none stroke-ink/50 stroke-2"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M17.5 8.5 9.34 16.66a3 3 0 1 1-4.24-4.24l7.78-7.78a2 2 0 1 1 2.83 2.83L8 15.17a1 1 0 1 1-1.41-1.41l6.36-6.36"
+                          />
+                        </svg>
+                      )}
+                      {post.thumbnailUrl && isImageFile(post.thumbnailUrl) && (
+                        <svg
+                          aria-label="사진 파일"
+                          viewBox="0 0 24 24"
+                          className="h-3.5 w-3.5 shrink-0 fill-primary/70"
+                        >
+                          <path d="M9 3 7.17 5H4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.17L15 3H9Zm3 15a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm0-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                        </svg>
+                      )}
                     </Link>
                   </td>
                   <td className="px-3 py-3 text-center text-ink/60">{post.authorName}</td>
